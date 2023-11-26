@@ -16,6 +16,8 @@ namespace Decorators
         public Decorator(IMatrix matrix)
         {
             this.matrix = matrix;
+            ROWS = matrix.ROWS;
+            COLS = matrix.COLS;
         }
         public int ROWS { get; }
         public int COLS { get; }

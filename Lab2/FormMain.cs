@@ -8,7 +8,7 @@ namespace Visualization
 {
     public partial class FormMain : Form
     {
-        IMatrix matrix;
+        IMatrix matrix = null;
         ShuffleDecorator decorated;
         bool checkState = false;
         string last = "none";
@@ -84,6 +84,8 @@ namespace Visualization
 
         private void DecorateBtn_Click(object sender, EventArgs e)
         {
+            if (matrix == null) return;
+
             decorated = new ShuffleDecorator(matrix);
             decorated.ShuffleRows();
             decorated.ShuffleColumns();
@@ -99,6 +101,8 @@ namespace Visualization
 
         private void UndecorateBtn_Click(object sender, EventArgs e)
         {
+            if (matrix == null) return;
+
             if (last == "normal")
             {
                 DisplayMatrix(new NormalPrinter<int>(), matrix);
