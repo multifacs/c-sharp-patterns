@@ -111,6 +111,10 @@
       <Project>{c325bcbe-5141-4e5f-ba75-9d1c4914f15f}</Project>
       <Name>Containers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Decorator\Decorators.csproj">
+      <Project>{3efd955f-7a10-4ca1-8378-4445f5310f68}</Project>
+      <Name>Decorators</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

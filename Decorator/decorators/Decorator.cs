@@ -22,5 +22,7 @@ namespace Decorators
 
         public abstract int Get(int i, int j);
         public abstract void Set(int i, int j, int val);
+
+        public IMatrix GetMatrix() => matrix;
     }
 }

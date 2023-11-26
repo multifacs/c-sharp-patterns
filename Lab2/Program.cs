@@ -15,9 +15,6 @@ namespace Visualization
         [STAThread]
         static void Main()
         {
-            Console.WriteLine("123");
-
-            Console.WriteLine();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());

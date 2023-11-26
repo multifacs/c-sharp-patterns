@@ -1,4 +1,5 @@
-﻿using Matrices;
+﻿using Decorators;
+using Matrices;
 using System;
 using System.Windows.Forms;
 using Utils;
@@ -8,7 +9,9 @@ namespace Visualization
     public partial class FormMain : Form
     {
         IMatrix matrix;
+        ShuffleDecorator decorated;
         bool checkState = false;
+        string last = "none";
         public FormMain()
         {
             InitializeComponent();
@@ -31,6 +34,8 @@ namespace Visualization
 
         private void GenerateNormalBtn_click(object sender, EventArgs e)
         {
+            last = "normal";
+
             int rowSize, colSize;
             GetRndSize(out rowSize, out colSize);
 
@@ -45,6 +50,8 @@ namespace Visualization
 
         private void GenerateSparseBtn_click(object sender, EventArgs e)
         {
+            last = "sparse";
+
             int rowSize, colSize;
             GetRndSize(out rowSize, out colSize);
 
@@ -77,12 +84,29 @@ namespace Visualization
 
         private void DecorateBtn_Click(object sender, EventArgs e)
         {
-
+            decorated = new ShuffleDecorator(matrix);
+            decorated.ShuffleRows();
+            decorated.ShuffleColumns();
+            if (last == "normal")
+            {
+                DisplayMatrix(new NormalPrinter<int>(), decorated);
+            }
+            if (last == "sparse")
+            {
+                DisplayMatrix(new SparsePrinter<int>(), decorated);
+            }
         }
 
         private void UndecorateBtn_Click(object sender, EventArgs e)
         {
-
+            if (last == "normal")
+            {
+                DisplayMatrix(new NormalPrinter<int>(), matrix);
+            }
+            if (last == "sparse")
+            {
+                DisplayMatrix(new SparsePrinter<int>(), matrix);
+            }
         }
     }
 }
