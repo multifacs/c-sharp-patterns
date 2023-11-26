@@ -7,8 +7,7 @@ namespace Visualization
 {
     public partial class FormMain : Form
     {
-        NormalMatrix normalMatrix;
-        SparseMatrix sparseMatrix;
+        IMatrix matrix;
         bool checkState = false;
         public FormMain()
         {
@@ -30,36 +29,40 @@ namespace Visualization
             visualizer.Visualize(data);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void GenerateNormalBtn_click(object sender, EventArgs e)
         {
-            Random r = new Random();
+            int rowSize, colSize;
+            GetRndSize(out rowSize, out colSize);
 
-            int rowSize = r.Next(2, 10);
-            int colSize = r.Next(2, 10);
-
-            normalMatrix = new NormalMatrix(rowSize, colSize);
+            matrix = new NormalMatrix(rowSize, colSize);
 
             int normalNotNull = (int) (rowSize * colSize * 0.9);
             int normalMax = 50;
-            MatrixInitializer.Initialize(normalMatrix, normalNotNull, normalMax);
+            MatrixInitializer.Initialize(matrix, normalNotNull, normalMax);
 
-            DisplayMatrix(new NormalPrinter<int>(), normalMatrix);
+            DisplayMatrix(new NormalPrinter<int>(), matrix);
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void GenerateSparseBtn_click(object sender, EventArgs e)
         {
-            Random r = new Random();
+            int rowSize, colSize;
+            GetRndSize(out rowSize, out colSize);
 
-            int rowSize = r.Next(2, 10);
-            int colSize = r.Next(2, 10);
-
-            sparseMatrix = new SparseMatrix(rowSize, colSize);
+            matrix = new SparseMatrix(rowSize, colSize);
 
             int sparseNotNull = (int)(rowSize * colSize * 0.15);
             int sparseMax = 50;
-            MatrixInitializer.Initialize(sparseMatrix, sparseNotNull, sparseMax);
+            MatrixInitializer.Initialize(matrix, sparseNotNull, sparseMax);
 
-            DisplayMatrix(new SparsePrinter<int>(), sparseMatrix);
+            DisplayMatrix(new SparsePrinter<int>(), matrix);
+        }
+
+        private static void GetRndSize(out int rowSize, out int colSize)
+        {
+            Random r = new Random();
+
+            rowSize = r.Next(2, 10);
+            colSize = r.Next(2, 10);
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -67,11 +70,19 @@ namespace Visualization
 
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void DrawBorderChkBox_CheckedChanged(object sender, EventArgs e)
         {
-            //Console.WriteLine(sender.ToString());
-            //Console.WriteLine(e.ToString());
             checkState = checkBox1.Checked;
+        }
+
+        private void DecorateBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UndecorateBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
